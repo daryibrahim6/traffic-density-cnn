@@ -450,6 +450,7 @@
     const tensor = tf.tensor4d(input, [1, IMAGE_SIZE, IMAGE_SIZE, 3]);
     const prediction = model.predict(tensor);
     const probabilities = await prediction.data();
+    console.log('Raw probabilities:', Array.from(probabilities));
     tf.dispose([tensor, prediction]);
     return Array.from(probabilities);
   }
