@@ -1,0 +1,231 @@
+---
+---
+
+<section id="demo" class="py-24 relative">
+  <div class="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-blue-50/10 to-slate-50/50"></div>
+  <div class="section-container relative z-10">
+    <div class="text-center mb-16">
+      <p class="reveal text-sm text-muted-foreground mb-2">Interactive Demo</p>
+      <h2 class="reveal reveal-delay-1 text-3xl font-bold tracking-tight">Coba Prediksi</h2>
+      <p class="reveal reveal-delay-2 text-sm text-muted-foreground mt-2 max-w-md mx-auto">
+        Upload foto kondisi jalan, model akan mengklasifikasinya secara langsung di browser anda.
+      </p>
+    </div>
+
+    <div class="reveal-scale max-w-2xl mx-auto">
+      <div class="card overflow-hidden p-0">
+        <div id="upload-zone" class="upload-zone" role="button" tabindex="0" aria-label="Upload gambar">
+          <input type="file" id="file-input" accept="image/*" class="hidden" />
+          <div id="upload-placeholder">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-50 to-violet-50 border border-blue-100/50 flex items-center justify-center mx-auto mb-4 animate-pulse-glow">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
+            </div>
+            <p class="text-sm font-medium text-foreground">Klik atau drag & drop gambar ke sini</p>
+            <p class="text-xs text-muted-foreground/60 mt-1">Format: JPG, PNG (maks. 10MB)</p>
+          </div>
+        </div>
+
+        <div id="preview-section" class="hidden p-6">
+          <div class="flex flex-col sm:flex-row gap-6">
+            <div class="shrink-0">
+              <img id="preview-img" class="w-48 h-48 object-cover rounded-xl border border-slate-200 shadow-md" alt="Preview" />
+            </div>
+            <div class="flex-1 min-w-0">
+              <h4 class="font-semibold mb-1">Hasil Prediksi</h4>
+              <div id="prediction-loading" class="hidden">
+                <div class="flex items-center gap-2 text-sm text-muted-foreground">
+                  <svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="32" stroke-linecap="round" />
+                  </svg>
+                  Memproses...
+                </div>
+              </div>
+              <div id="prediction-result" class="hidden">
+                <div id="pred-class" class="text-2xl font-bold mb-1"></div>
+                <div id="pred-confidence" class="text-sm text-muted-foreground mb-4"></div>
+                <div class="space-y-2.5">
+                  <div class="flex items-center gap-3">
+                    <span class="text-xs w-16 text-muted-foreground">Lancar</span>
+                    <div class="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                      <div id="bar-lancar" class="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full transition-all duration-700 ease-out"></div>
+                    </div>
+                    <span id="pct-lancar" class="text-xs w-12 text-right text-muted-foreground font-mono"></span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="text-xs w-16 text-muted-foreground">Sedang</span>
+                    <div class="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                      <div id="bar-sedang" class="h-full bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full transition-all duration-700 ease-out"></div>
+                    </div>
+                    <span id="pct-sedang" class="text-xs w-12 text-right text-muted-foreground font-mono"></span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="text-xs w-16 text-muted-foreground">Padat</span>
+                    <div class="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                      <div id="bar-padat" class="h-full bg-gradient-to-r from-red-400 to-rose-500 rounded-full transition-all duration-700 ease-out"></div>
+                    </div>
+                    <span id="pct-padat" class="text-xs w-12 text-right text-muted-foreground font-mono"></span>
+                  </div>
+                </div>
+              </div>
+              <div id="prediction-error" class="hidden text-sm text-red-600 mt-2"></div>
+            </div>
+          </div>
+          <div class="mt-4 pt-4 border-t border-slate-100 flex justify-end">
+            <button id="reset-btn" class="btn-outline text-sm py-2 px-4">
+              Upload gambar lain
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs text-center text-muted-foreground/60 mt-4">
+        Inference dilakukan sepenuhnya di browser menggunakan TensorFlow.js. Tidak ada data yang dikirim ke server.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // @ts-nocheck
+  let model = null;
+  let isProcessing = false;
+
+  const CLASS_NAMES = ['Lancar', 'Sedang', 'Padat'];
+  const IMAGE_SIZE = 224;
+
+  const uploadZone = document.getElementById('upload-zone');
+  const fileInput = document.getElementById('file-input');
+  const previewSection = document.getElementById('preview-section');
+  const previewImg = document.getElementById('preview-img');
+  const predictionLoading = document.getElementById('prediction-loading');
+  const predictionResult = document.getElementById('prediction-result');
+  const predictionError = document.getElementById('prediction-error');
+  const resetBtn = document.getElementById('reset-btn');
+
+  async function loadModel() {
+    if (model) return model;
+    try {
+      const tf = await import('@tensorflow/tfjs');
+      model = await tf.loadGraphModel('/model/model.json');
+      console.log('Model loaded successfully');
+      return model;
+    } catch (err) {
+      console.error('Failed to load model:', err);
+      throw err;
+    }
+  }
+
+  function preprocessImage(img) {
+    return new Promise((resolve) => {
+      const canvas = document.createElement('canvas');
+      canvas.width = IMAGE_SIZE;
+      canvas.height = IMAGE_SIZE;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, IMAGE_SIZE, IMAGE_SIZE);
+      const imageData = ctx.getImageData(0, 0, IMAGE_SIZE, IMAGE_SIZE);
+      const data = imageData.data;
+
+      const mean = [123.68, 116.779, 103.939];
+      const std = [58.393, 57.12, 57.375];
+      const input = new Float32Array(IMAGE_SIZE * IMAGE_SIZE * 3);
+
+      for (let i = 0; i < IMAGE_SIZE * IMAGE_SIZE; i++) {
+        for (let c = 0; c < 3; c++) {
+          input[i * 3 + c] = (data[i * 4 + c] - mean[c]) / std[c];
+        }
+      }
+      resolve(input);
+    });
+  }
+
+  async function predict(img) {
+    if (isProcessing) return;
+    isProcessing = true;
+
+    predictionLoading.classList.remove('hidden');
+    predictionResult.classList.add('hidden');
+    predictionError.classList.add('hidden');
+
+    try {
+      const tf = await import('@tensorflow/tfjs');
+      await loadModel();
+
+      const input = await preprocessImage(img);
+      const tensor = tf.tensor4d(input, [1, IMAGE_SIZE, IMAGE_SIZE, 3]);
+      const prediction = model.predict(tensor);
+      const probabilities = await prediction.data();
+
+      const maxIdx = probabilities.indexOf(Math.max(...probabilities));
+      const className = CLASS_NAMES[maxIdx];
+      const confidence = (probabilities[maxIdx] * 100).toFixed(1);
+
+      document.getElementById('pred-class').textContent = className;
+      document.getElementById('pred-class').className = `text-2xl font-bold mb-1 ${className === 'Padat' ? 'bg-gradient-to-r from-red-500 to-rose-500 bg-clip-text text-transparent' : className === 'Sedang' ? 'bg-gradient-to-r from-yellow-500 to-amber-500 bg-clip-text text-transparent' : 'bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent'}`;
+      document.getElementById('pred-confidence').textContent = `Confidence: ${confidence}%`;
+
+      document.getElementById('bar-lancar').style.width = `${probabilities[0] * 100}%`;
+      document.getElementById('bar-sedang').style.width = `${probabilities[1] * 100}%`;
+      document.getElementById('bar-padat').style.width = `${probabilities[2] * 100}%`;
+      document.getElementById('pct-lancar').textContent = `${(probabilities[0] * 100).toFixed(1)}%`;
+      document.getElementById('pct-sedang').textContent = `${(probabilities[1] * 100).toFixed(1)}%`;
+      document.getElementById('pct-padat').textContent = `${(probabilities[2] * 100).toFixed(1)}%`;
+
+      predictionLoading.classList.add('hidden');
+      predictionResult.classList.remove('hidden');
+
+      tf.dispose([tensor, prediction]);
+    } catch (err) {
+      predictionLoading.classList.add('hidden');
+      predictionError.textContent = `Error: ${err.message || 'Gagal memuat model. Pastikan file model tersedia di /model/'}`;
+      predictionError.classList.remove('hidden');
+    } finally {
+      isProcessing = false;
+    }
+  }
+
+  function handleFile(file) {
+    if (!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      previewImg.src = e.target.result;
+      previewImg.onload = () => {
+        uploadZone.classList.add('hidden');
+        previewSection.classList.remove('hidden');
+        predict(previewImg);
+      };
+    };
+    reader.readAsDataURL(file);
+  }
+
+  uploadZone.addEventListener('click', () => fileInput.click());
+  uploadZone.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') fileInput.click();
+  });
+
+  uploadZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadZone.classList.add('dragover');
+  });
+  uploadZone.addEventListener('dragleave', () => {
+    uploadZone.classList.remove('dragover');
+  });
+  uploadZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadZone.classList.remove('dragover');
+    if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
+  });
+
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files.length > 0) handleFile(fileInput.files[0]);
+  });
+
+  resetBtn.addEventListener('click', () => {
+    uploadZone.classList.remove('hidden');
+    previewSection.classList.add('hidden');
+    fileInput.value = '';
+  });
+</script>

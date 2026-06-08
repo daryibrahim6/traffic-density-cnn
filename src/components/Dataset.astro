@@ -1,0 +1,77 @@
+---
+const classes = [
+  { name: 'Lancar', count: 936, color: 'from-green-400 to-emerald-500', barColor: 'bg-gradient-to-r from-green-400 to-emerald-500', textColor: 'text-green-700', bgColor: 'bg-green-50', pct: 46.8 },
+  { name: 'Sedang', count: 688, color: 'from-yellow-400 to-amber-500', barColor: 'bg-gradient-to-r from-yellow-400 to-amber-500', textColor: 'text-yellow-700', bgColor: 'bg-yellow-50', pct: 34.4 },
+  { name: 'Padat', count: 378, color: 'from-red-400 to-rose-500', barColor: 'bg-gradient-to-r from-red-400 to-rose-500', textColor: 'text-red-700', bgColor: 'bg-red-50', pct: 18.9 },
+];
+
+const datasets = [
+  { label: 'Training', count: 3378, pct: '85%', gradient: 'from-blue-500 to-violet-500' },
+  { label: 'Validation', count: 340, pct: '9%', gradient: 'from-cyan-500 to-blue-500' },
+  { label: 'Testing', count: 320, pct: '8%', gradient: 'from-violet-500 to-purple-500' },
+];
+---
+
+<section id="dataset" class="py-24 relative">
+  <div class="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-blue-50/20 to-slate-50/50"></div>
+  <div class="section-container relative z-10">
+    <div class="text-center mb-16">
+      <p class="reveal text-sm text-muted-foreground mb-2">Eksplorasi Data</p>
+      <h2 class="reveal reveal-delay-1 text-3xl font-bold tracking-tight">Dataset</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <div class="reveal reveal-delay-1 card">
+        <h3 class="font-semibold mb-5">Distribusi Kelas (Training)</h3>
+        <div class="space-y-4">
+          {classes.map((cls) => (
+            <div class="group">
+              <div class="flex items-center justify-between text-sm mb-1.5">
+                <span class="font-medium">{cls.name}</span>
+                <span class="text-muted-foreground">{cls.count} citra ({cls.pct}%)</span>
+              </div>
+              <div class="h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class={`h-full rounded-full ${cls.barColor} transition-all duration-1000 group-hover:shadow-[0_0_12px_rgba(34,197,94,0.3)]`} style={`width: ${cls.pct}%`}></div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="mt-6 pt-4 border-t border-slate-100 text-sm text-muted-foreground">
+          Total: <strong class="text-foreground">3,378 citra</strong> untuk training.
+          Kelas <span class={`inline-flex px-1.5 py-0.5 rounded text-xs font-medium ${classes[0].bgColor} ${classes[0].textColor}`}>Lancar</span>
+          memiliki representasi terbanyak, sementara
+          <span class={`inline-flex px-1.5 py-0.5 rounded text-xs font-medium ${classes[2].bgColor} ${classes[2].textColor}`}>Padat</span>
+          paling sedikit — ditangani dengan class weighting.
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2 card">
+        <h3 class="font-semibold mb-5">Pembagian Data</h3>
+        <div class="space-y-3">
+          {datasets.map((ds) => (
+            <div class="flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-slate-50 to-white border border-slate-100 hover:shadow-md transition-all duration-300 hover:border-slate-200 group">
+              <div class="flex items-center gap-3">
+                <span class={`w-10 h-10 rounded-xl bg-gradient-to-br ${ds.gradient} text-white text-xs flex items-center justify-center font-bold shadow-lg group-hover:scale-110 transition-transform`}>{ds.pct}</span>
+                <div>
+                  <div class="text-sm font-medium">{ds.label}</div>
+                  <div class="text-xs text-muted-foreground">{ds.count} citra</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-slate-100">
+          <h4 class="text-sm font-medium mb-3">Augmentasi Data</h4>
+          <div class="flex flex-wrap gap-2">
+            {['Rotation ±15°', 'Shift 10%', 'Horizontal Flip', 'Zoom 10%'].map((aug) => (
+              <span class="inline-flex px-3 py-1.5 rounded-lg bg-gradient-to-r from-slate-50 to-slate-100 border border-slate-200/50 text-xs text-muted-foreground hover:scale-105 transition-transform cursor-default">
+                {aug}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

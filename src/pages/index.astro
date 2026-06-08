@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Dataset from '../components/Dataset.astro';
+import Results from '../components/Results.astro';
+import Demo from '../components/Demo.astro';
+import Team from '../components/Team.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Navbar />
+  <main>
+    <Hero />
+    <About />
+    <Dataset />
+    <Results />
+    <Demo />
+    <Team />
+  </main>
+  <Footer />
+
+  <script>
+    // Scroll Reveal Animation
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right').forEach((el) => {
+      observer.observe(el);
+    });
+
+    // Counter Animation
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          const target = parseFloat(el.dataset.target || '0');
+          const suffix = el.dataset.suffix || '';
+          const duration = 1500;
+          const start = performance.now();
+
+          function update(now: number) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = eased * target;
+            el.textContent = current.toFixed(target % 1 !== 0 ? 2 : 0);
+            if (progress < 1) requestAnimationFrame(update);
+            else el.textContent = target.toString();
+          }
+          requestAnimationFrame(update);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter').forEach((el) => {
+      counterObserver.observe(el);
+    });
+  </script>
+</Layout>

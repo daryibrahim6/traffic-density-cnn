@@ -1,0 +1,47 @@
+---
+const members = [
+  { name: 'Dary Ibrahim Akram', nim: '2307088', role: 'Machine Learning', gradient: 'from-blue-500 to-cyan-400' },
+  { name: 'Bunga Purwaningsih', nim: '2307086', role: 'Data Preprocessing', gradient: 'from-violet-500 to-purple-400' },
+  { name: 'Chairani Nayu Nainggolan', nim: '2307087', role: 'Visualization & Evaluation', gradient: 'from-amber-500 to-orange-400' },
+  { name: 'Muhammad Rijal Marzuq', nim: '2307097', role: 'Frontend Development', gradient: 'from-emerald-500 to-green-400' },
+];
+---
+
+<section id="team" class="py-24 relative">
+  <div class="absolute inset-0 bg-gradient-to-b from-white via-slate-50/30 to-white"></div>
+  <div class="section-container relative z-10">
+    <div class="text-center mb-16">
+      <p class="reveal text-sm text-muted-foreground mb-2">Kelompok 3</p>
+      <h2 class="reveal reveal-delay-1 text-3xl font-bold tracking-tight">Tim Kami</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+      {members.map((m, i) => (
+        <div class={`reveal reveal-delay-${i + 1} card text-center group`}>
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-50 border border-slate-200/50 mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-muted-foreground">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-sm">{m.name}</h3>
+          <p class="text-xs text-muted-foreground mt-0.5">{m.role}</p>
+          <p class="text-xs text-muted-foreground/60 mt-1">NIM: {m.nim}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="reveal mt-12 text-center">
+      <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-slate-50 to-white border border-slate-200/50 text-sm shadow-sm">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-muted-foreground">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+          <path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5" />
+        </svg>
+        <span class="text-muted-foreground">
+          Prodi D4 Sistem Informasi Kota Cerdas —
+          <strong class="text-foreground">Politeknik Negeri Indramayu</strong>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>

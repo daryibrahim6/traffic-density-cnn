@@ -1,0 +1,89 @@
+---
+---
+
+<section id="about" class="py-24 relative">
+  <div class="absolute inset-0 bg-gradient-to-b from-white via-slate-50/30 to-white"></div>
+  <div class="section-container relative z-10">
+    <div class="text-center mb-16">
+      <p class="reveal text-sm text-muted-foreground mb-2">Tentang Project</p>
+      <h2 class="reveal reveal-delay-1 text-3xl font-bold tracking-tight">Masalah & Solusi</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="reveal reveal-delay-1 card card-red group">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-50 to-orange-50 border border-red-100/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+        </div>
+        <h3 class="font-semibold mb-2">Masalah</h3>
+        <p class="text-sm text-muted-foreground leading-relaxed">
+          Kemacetan lalu lintas menjadi masalah utama di kota-kota besar Indonesia.
+          Penanganan yang lambat menyebabkan ketidakefisienan waktu dan biaya bahan bakar.
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-2 card card-blue group">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+        </div>
+        <h3 class="font-semibold mb-2">Solusi</h3>
+        <p class="text-sm text-muted-foreground leading-relaxed">
+          Klasifikasi otomatis kepadatan lalu lintas menggunakan citra visual.
+          Model dapat mengidentifikasi kondisi Lancar, Sedang, atau Padat secara real-time.
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-3 card card-green group">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
+          </svg>
+        </div>
+        <h3 class="font-semibold mb-2">Model</h3>
+        <p class="text-sm text-muted-foreground leading-relaxed">
+          CNN dengan arsitektur MobileNetV2 menggunakan Transfer Learning dari ImageNet.
+          Dilengkapi data augmentasi dan class weighting untuk data imbalanced.
+        </p>
+      </div>
+    </div>
+
+    <div class="reveal mt-12 card">
+      <h3 class="font-semibold mb-4">Bagaimana Model Bekerja</h3>
+      <div class="flex flex-col sm:flex-row items-center gap-4 text-sm text-muted-foreground">
+        <div class="flex items-center gap-2">
+          <span class="w-9 h-9 rounded-full bg-gradient-to-br from-slate-900 to-slate-700 flex items-center justify-center font-semibold text-white text-xs shadow-md">1</span>
+          <span>Input citra jalan</span>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="2" class="hidden sm:block shrink-0">
+          <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+        </svg>
+        <div class="flex items-center gap-2">
+          <span class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center font-semibold text-white text-xs shadow-md">2</span>
+          <span>Preprocessing & resize 224x224</span>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="2" class="hidden sm:block shrink-0">
+          <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+        </svg>
+        <div class="flex items-center gap-2">
+          <span class="w-9 h-9 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center font-semibold text-white text-xs shadow-md">3</span>
+          <span>MobileNetV2 + classifier</span>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="2" class="hidden sm:block shrink-0">
+          <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+        </svg>
+        <div class="flex items-center gap-2">
+          <span class="w-9 h-9 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center font-semibold text-white text-xs shadow-md">4</span>
+          <span>Output: Lancar / Sedang / Padat</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
