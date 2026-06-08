@@ -110,7 +110,7 @@
     if (model) return model;
     try {
       const tf = await import('@tensorflow/tfjs');
-      model = await tf.loadGraphModel('/model/model.json');
+      model = await tf.loadLayersModel('/model/model.json');
       console.log('Model loaded successfully');
       return model;
     } catch (err) {
