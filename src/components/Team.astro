@@ -1,13 +1,13 @@
 ---
 const members = [
-  { name: 'Dary Ibrahim Akram', nim: '2307088', role: 'Machine Learning', gradient: 'from-blue-500 to-cyan-400' },
-  { name: 'Bunga Purwaningsih', nim: '2307086', role: 'Data Preprocessing', gradient: 'from-violet-500 to-purple-400' },
-  { name: 'Chairani Nayu Nainggolan', nim: '2307087', role: 'Visualization & Evaluation', gradient: 'from-amber-500 to-orange-400' },
-  { name: 'Muhammad Rijal Marzuq', nim: '2307097', role: 'Frontend Development', gradient: 'from-emerald-500 to-green-400' },
+  { name: 'Dary Ibrahim Akram', nim: '2307088', role: 'Machine Learning', gender: 'male', gradient: 'from-blue-500 to-cyan-400' },
+  { name: 'Bunga Purwaningsih', nim: '2307086', role: 'Data Preprocessing', gender: 'female', gradient: 'from-violet-500 to-purple-400' },
+  { name: 'Chairani Nayu Nainggolan', nim: '2307087', role: 'Visualization & Evaluation', gender: 'female', gradient: 'from-amber-500 to-orange-400' },
+  { name: 'Muhammad Rijal Marzuq', nim: '2307097', role: 'Frontend Development', gender: 'male', gradient: 'from-emerald-500 to-green-400' },
 ];
 ---
 
-<section id="team" class="py-24 relative">
+<section id="team" class="min-h-screen py-24 relative flex items-center">
   <div class="absolute inset-0 bg-gradient-to-b from-white via-slate-50/30 to-white"></div>
   <div class="section-container relative z-10">
     <div class="text-center mb-16">
@@ -18,11 +18,13 @@ const members = [
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
       {members.map((m, i) => (
         <div class={`reveal reveal-delay-${i + 1} card text-center group`}>
-          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-50 border border-slate-200/50 mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-muted-foreground">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
+          <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-50 border border-slate-200/50 mx-auto mb-4 overflow-hidden group-hover:scale-110 transition-transform duration-300">
+            <img
+              src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${encodeURIComponent(m.name)}&gender=${m.gender}`}
+              alt={m.name}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
           </div>
           <h3 class="font-semibold text-sm">{m.name}</h3>
           <p class="text-xs text-muted-foreground mt-0.5">{m.role}</p>

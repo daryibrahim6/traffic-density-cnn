@@ -2,7 +2,7 @@
 
 ---
 
-<section id="demo" class="py-24 relative">
+<section id="demo" class="min-h-screen py-24 relative flex items-center">
   <div
     class="absolute inset-0 bg-gradient-to-b from-slate-50/50 via-blue-50/10 to-slate-50/50"
   >
@@ -215,13 +215,11 @@
       const imageData = ctx.getImageData(0, 0, IMAGE_SIZE, IMAGE_SIZE);
       const data = imageData.data;
 
-      const mean = [123.68, 116.779, 103.939];
-      const std = [58.393, 57.12, 57.375];
       const input = new Float32Array(IMAGE_SIZE * IMAGE_SIZE * 3);
 
       for (let i = 0; i < IMAGE_SIZE * IMAGE_SIZE; i++) {
         for (let c = 0; c < 3; c++) {
-          input[i * 3 + c] = (data[i * 4 + c] - mean[c]) / std[c];
+          input[i * 3 + c] = (data[i * 4 + c] / 127.5) - 1.0;
         }
       }
       resolve(input);

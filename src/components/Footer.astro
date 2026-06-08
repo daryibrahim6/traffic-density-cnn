@@ -1,4 +1,11 @@
 ---
+const navItems = [
+  { label: 'Tentang', href: '#about' },
+  { label: 'Dataset', href: '#dataset' },
+  { label: 'Hasil', href: '#results' },
+  { label: 'Demo', href: '#demo' },
+  { label: 'Tim', href: '#team' },
+];
 ---
 
 <footer class="py-8 relative border-t-0">
@@ -16,9 +23,19 @@
         </span>
         <span>&copy; 2026 Kelompok 3</span>
       </div>
-      <div class="text-xs text-muted-foreground/60">
-        Tugas Besar Machine Learning — Politeknik Negeri Indramayu
-      </div>
+
+      <nav class="flex items-center gap-4 text-xs text-muted-foreground">
+        {navItems.map((item) => (
+          <a href={item.href} class="hover:text-foreground transition-colors">{item.label}</a>
+        ))}
+      </nav>
+
+      <a href="#" class="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors group" aria-label="Kembali ke atas">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-hover:-translate-y-0.5 transition-transform">
+          <path d="M18 15l-6-6-6 6" />
+        </svg>
+        Kembali ke atas
+      </a>
     </div>
   </div>
 </footer>
