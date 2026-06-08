@@ -423,24 +423,26 @@
   }
 
   function updateBars(prefix, probabilities) {
-    document.getElementById(`${prefix}-pred-class`).textContent =
-      CLASS_NAMES[probabilities.indexOf(Math.max(...probabilities))];
-    const cls = CLASS_NAMES[probabilities.indexOf(Math.max(...probabilities))];
-    document.getElementById(`${prefix}-pred-class`).className =
+    const id = (key) => prefix ? `${prefix}-${key}` : key;
+    const maxIdx = probabilities.indexOf(Math.max(...probabilities));
+    const cls = CLASS_NAMES[maxIdx];
+
+    document.getElementById(id("pred-class")).textContent = cls;
+    document.getElementById(id("pred-class")).className =
       `text-2xl font-bold mb-1 ${cls === "Padat" ? "bg-gradient-to-r from-red-500 to-rose-500 bg-clip-text text-transparent" : cls === "Sedang" ? "bg-gradient-to-r from-yellow-500 to-amber-500 bg-clip-text text-transparent" : "bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent"}`;
-    document.getElementById(`${prefix}-pred-confidence`).textContent =
-      `Confidence: ${(probabilities[probabilities.indexOf(Math.max(...probabilities))] * 100).toFixed(1)}%`;
-    document.getElementById(`${prefix}-bar-lancar`).style.width =
+    document.getElementById(id("pred-confidence")).textContent =
+      `Confidence: ${(probabilities[maxIdx] * 100).toFixed(1)}%`;
+    document.getElementById(id("bar-lancar")).style.width =
       `${probabilities[0] * 100}%`;
-    document.getElementById(`${prefix}-bar-sedang`).style.width =
+    document.getElementById(id("bar-sedang")).style.width =
       `${probabilities[1] * 100}%`;
-    document.getElementById(`${prefix}-bar-padat`).style.width =
+    document.getElementById(id("bar-padat")).style.width =
       `${probabilities[2] * 100}%`;
-    document.getElementById(`${prefix}-pct-lancar`).textContent =
+    document.getElementById(id("pct-lancar")).textContent =
       `${(probabilities[0] * 100).toFixed(1)}%`;
-    document.getElementById(`${prefix}-pct-sedang`).textContent =
+    document.getElementById(id("pct-sedang")).textContent =
       `${(probabilities[1] * 100).toFixed(1)}%`;
-    document.getElementById(`${prefix}-pct-padat`).textContent =
+    document.getElementById(id("pct-padat")).textContent =
       `${(probabilities[2] * 100).toFixed(1)}%`;
   }
 
@@ -603,6 +605,7 @@
         vCanvasCtx.drawImage(videoPlayer, 0, 0, IMAGE_SIZE, IMAGE_SIZE);
         const input = preprocessCanvas(videoCanvas);
         const probs = await runPrediction(input);
+        console.log("Probabilities:", probs);
         updateBars("v", probs);
       } catch (err) {
         console.error("Video prediction error:", err);
