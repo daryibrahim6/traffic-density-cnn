@@ -450,7 +450,6 @@
     const tensor = tf.tensor4d(input, [1, IMAGE_SIZE, IMAGE_SIZE, 3]);
     const prediction = model.predict(tensor);
     const probabilities = await prediction.data();
-    console.log('Raw probabilities:', Array.from(probabilities));
     tf.dispose([tensor, prediction]);
     return Array.from(probabilities);
   }
@@ -592,7 +591,6 @@
     videoStatus.classList.remove("hidden");
 
     videoInterval = setInterval(async () => {
-      console.log("interval tick");
       if (videoPlayer.paused || videoPlayer.ended) {
         stopVideoPrediction();
         return;
@@ -607,7 +605,6 @@
         vCanvasCtx.drawImage(videoPlayer, 0, 0, IMAGE_SIZE, IMAGE_SIZE);
         const input = preprocessCanvas(videoCanvas);
         const probs = await runPrediction(input);
-        console.log("Probabilities:", probs);
         updateBars("v", probs);
       } catch (err) {
         console.error("Video prediction error:", err);
