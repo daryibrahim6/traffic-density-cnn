@@ -592,6 +592,7 @@
     videoStatus.classList.remove("hidden");
 
     videoInterval = setInterval(async () => {
+      console.log("interval tick");
       if (videoPlayer.paused || videoPlayer.ended) {
         stopVideoPrediction();
         return;
@@ -633,7 +634,14 @@
     videoError.classList.add("hidden");
 
     videoPlayer.onloadeddata = () => {
-      startVideoPrediction();
+      videoLoading.classList.add("hidden");
+      videoResult.classList.remove("hidden");
+    };
+
+    videoPlayer.onplay = () => {
+      if (!videoInterval) {
+        startVideoPrediction();
+      }
     };
 
     videoPlayer.onpause = () => {
