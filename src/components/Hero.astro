@@ -8,53 +8,104 @@
   <div class="absolute top-1/2 left-1/3 w-64 h-64 bg-gradient-to-br from-cyan-100/20 to-blue-50/10 rounded-full blur-3xl animate-orbit" style="animation-delay: -5s;"></div>
 
   <div class="section-container relative z-10 pt-24 pb-16">
-    <div class="max-w-3xl">
-      <div class="reveal inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200/80 bg-white/70 backdrop-blur-sm text-xs text-muted-foreground mb-8 shadow-sm">
-        <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-        Tugas Besar Machine Learning — 2025/2026
+    <div class="flex flex-col lg:flex-row items-center gap-12">
+      <div class="flex-1 max-w-3xl">
+        <div class="reveal inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200/80 bg-white/70 backdrop-blur-sm text-xs text-muted-foreground mb-8 shadow-sm">
+          <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+          Tugas Besar Machine Learning — 2025/2026
+        </div>
+
+        <h1 class="reveal reveal-delay-1 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6">
+          Klasifikasi Kepadatan
+          <br />
+          <span class="gradient-text">Lalu Lintas</span>
+        </h1>
+
+        <p class="reveal reveal-delay-2 text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl">
+          Implementasi model <strong class="text-foreground">CNN MobileNetV2</strong> dengan
+          Transfer Learning untuk mengklasifikasi kepadatan lalu lintas menjadi tiga kelas:
+          Lancar, Sedang, dan Padat.
+        </p>
+
+        <div class="reveal reveal-delay-3 flex flex-wrap gap-3">
+          <a href="#demo" class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+            Coba Prediksi
+          </a>
+          <a href="#about" class="btn-outline">
+            Pelajari Lebih Lanjut
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="reveal reveal-delay-4 mt-12 grid grid-cols-3 gap-4 max-w-md">
+          <div class="glass-strong border border-slate-200/70 shadow-sm rounded-xl p-4 text-center animate-float hover:shadow-lg transition-shadow">
+            <div class="text-2xl font-bold gradient-text-blue">3</div>
+            <div class="text-xs text-muted-foreground mt-0.5">Kelas Output</div>
+          </div>
+          <div class="glass-strong border border-slate-200/70 shadow-sm rounded-xl p-4 text-center animate-float-delayed hover:shadow-lg transition-shadow">
+            <div class="text-2xl font-bold gradient-text-blue">77.6%</div>
+            <div class="text-xs text-muted-foreground mt-0.5">Akurasi</div>
+          </div>
+          <div class="glass-strong border border-slate-200/70 shadow-sm rounded-xl p-4 text-center animate-float hover:shadow-lg transition-shadow" style="animation-delay: 1s;">
+            <div class="text-2xl font-bold gradient-text-blue">2.4M</div>
+            <div class="text-xs text-muted-foreground mt-0.5">Parameter</div>
+          </div>
+        </div>
       </div>
 
-      <h1 class="reveal reveal-delay-1 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6">
-        Klasifikasi Kepadatan
-        <br />
-        <span class="gradient-text">Lalu Lintas</span>
-      </h1>
-
-      <p class="reveal reveal-delay-2 text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl">
-        Implementasi model <strong class="text-foreground">CNN MobileNetV2</strong> dengan
-        Transfer Learning untuk mengklasifikasi kepadatan lalu lintas menjadi tiga kelas:
-        Lancar, Sedang, dan Padat.
-      </p>
-
-      <div class="reveal reveal-delay-3 flex flex-wrap gap-3">
-        <a href="#demo" class="btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="17 8 12 3 7 8" />
-            <line x1="12" y1="3" x2="12" y2="15" />
-          </svg>
-          Coba Prediksi
-        </a>
-        <a href="#about" class="btn-outline">
-          Pelajari Lebih Lanjut
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </a>
-      </div>
-
-      <div class="reveal reveal-delay-4 mt-12 grid grid-cols-3 gap-4 max-w-md">
-        <div class="glass-strong rounded-xl p-4 text-center animate-float hover:shadow-lg transition-shadow">
-          <div class="text-2xl font-bold gradient-text-blue">3</div>
-          <div class="text-xs text-muted-foreground mt-0.5">Kelas Output</div>
-        </div>
-        <div class="glass-strong rounded-xl p-4 text-center animate-float-delayed hover:shadow-lg transition-shadow">
-          <div class="text-2xl font-bold gradient-text-blue">77.6%</div>
-          <div class="text-xs text-muted-foreground mt-0.5">Akurasi</div>
-        </div>
-        <div class="glass-strong rounded-xl p-4 text-center animate-float hover:shadow-lg transition-shadow" style="animation-delay: 1s;">
-          <div class="text-2xl font-bold gradient-text-blue">2.4M</div>
-          <div class="text-xs text-muted-foreground mt-0.5">Parameter</div>
+      <!-- Mock Prediction Card (lg+ only) -->
+      <div class="hidden lg:block shrink-0 w-80 reveal reveal-delay-3">
+        <div class="glass-strong rounded-2xl shadow-lg p-5 border border-slate-200/70">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="inline-flex w-6 h-6 rounded-md bg-gradient-to-br from-blue-500 to-violet-600 text-white items-center justify-center">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2" />
+                <rect x="9" y="9" width="6" height="6" />
+              </svg>
+            </span>
+            <span class="text-sm font-semibold">Contoh Prediksi</span>
+          </div>
+          <div class="w-full h-36 rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 border border-slate-200/70 flex items-center justify-center mb-4">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21 15 16 10 5 21" />
+            </svg>
+          </div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-lg font-bold bg-gradient-to-r from-red-500 to-rose-500 bg-clip-text text-transparent">Padat</span>
+            <span class="text-xs text-muted-foreground">Confidence: 91.2%</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-xs w-14 text-muted-foreground">Lancar</span>
+              <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full" style="width: 5.3%"></div>
+              </div>
+              <span class="text-xs w-10 text-right text-muted-foreground font-mono">5.3%</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs w-14 text-muted-foreground">Sedang</span>
+              <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full" style="width: 3.5%"></div>
+              </div>
+              <span class="text-xs w-10 text-right text-muted-foreground font-mono">3.5%</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs w-14 text-muted-foreground">Padat</span>
+              <div class="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-red-400 to-rose-500 rounded-full" style="width: 91.2%"></div>
+              </div>
+              <span class="text-xs w-10 text-right text-muted-foreground font-mono">91.2%</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

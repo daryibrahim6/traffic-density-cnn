@@ -60,7 +60,7 @@
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(148, 163, 184, 0.3);
   }
 
   /* ===== Section Container ===== */
@@ -130,9 +130,10 @@
   /* ===== Card Styles ===== */
   .card {
     background: white;
-    border: 1px solid #f0f0f0;
+    border: 1px solid rgba(148, 163, 184, 0.3);
     border-radius: 0.875rem;
     padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -169,9 +170,10 @@
   /* ===== Metric Card ===== */
   .metric-card {
     background: white;
-    border: 1px solid #f0f0f0;
+    border: 1px solid rgba(148, 163, 184, 0.3);
     border-radius: 0.875rem;
     padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     text-align: center;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
